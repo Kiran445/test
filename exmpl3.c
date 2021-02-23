@@ -7,9 +7,9 @@ int main() {
    
    // Child process
    if (pid == 0) {
-      system("ps -ef");
+      system("ls -ef");
       sleep(10);
-      system("ps -ef");
+      system("ls -ef");
       return 3; //exit status is 3 from child process
    } else {
       sleep(3);
