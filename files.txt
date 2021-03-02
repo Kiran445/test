@@ -1,0 +1,182 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+   int num;
+   FILE *fptr;
+
+   // use appropriate location if you are using MacOS or Linux
+   fptr = fopen("C:\\program.txt","w");
+
+   if(fptr == NULL)
+   {
+      printf("Error!");   
+      exit(1);             
+   }
+
+   printf("Enter num: ");
+   scanf("%d",&num);
+
+   fprintf(fptr,"%d",num);
+   fclose(fptr);
+
+   return 0;
+}
+
+--------------------read a file--------------
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+   int num;
+   FILE *fptr;
+
+   if ((fptr = fopen("C:\\program.txt","r")) == NULL){
+       printf("Error! opening file");
+
+       // Program exits if the file pointer returns NULL.
+       exit(1);
+   }
+
+   fscanf(fptr,"%d", &num);
+
+   printf("Value of n=%d", num);
+   fclose(fptr); 
+  
+   return 0;
+}
+
+------------------cmd arguements----------
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+	int a,b,sum;
+	if(argc!=3)
+	{
+		printf("please use \"prg_name value1 value2 \"\n");
+		return -1;
+	}
+	
+	a = atoi(argv[1]);
+	b = atoi(argv[2]);
+	sum = a+b;
+	
+	printf("Sum of %d, %d is: %d\n",a,b,sum);
+	
+	return 0;
+}
+
+----------------fputc--------------
+#include <stdio.h>
+int main() {
+        int i;
+        FILE * fptr;
+        char fn[50];
+        char str[] = "Guru99 Rocks\n";
+        fptr = fopen("fputc_test.txt", "w"); // "w" defines "writing mode"
+        for (i = 0; str[i] != '\n'; i++) {
+            /* write to file using fputc() function */
+            fputc(str[i], fptr);
+        }
+        fclose(fptr);
+        return 0;
+    }
+	
+	-------------fputs------------
+	
+	#include <stdio.h>
+int main() {
+        FILE * fp;
+        fp = fopen("fputs_test.txt", "w+");
+        fputs("This is Guru99 Tutorial on fputs,", fp);
+        fputs("We don't need to use for loop\n", fp);
+        fputs("Easier than fputc function\n", fp);
+        fclose(fp);
+        return (0);
+    }
+	
+	--------------------fprintf---------------
+	#include <stdio.h>
+    int main() {
+        FILE *fptr;
+        fptr = fopen("fprintf_test.txt", "w"); // "w" defines "writing mode"
+        /* write to file */
+        fprintf(fptr, "Learning C with Guru99\n");
+        fclose(fptr);
+        return 0;
+    }
+--------------------file handling----------------
+
+#include <stdio.h>
+int main() {
+        FILE * fp;
+        char c;
+        printf("File Handling\n");
+        //open a file
+        fp = fopen("demo.txt", "w");
+        //writing operation
+        while ((c = getchar()) != EOF) {
+            putc(c, fp);
+        }
+        //close file
+        fclose(fp);
+        printf("Data Entered:\n");
+        //reading
+        fp = fopen("demo.txt", "r");
+        while ((c = getc(fp)) != EOF) {
+            printf("%c", c);
+        }
+        fclose(fp);
+        return 0;
+    }
+
+	---------------------------copy of file--------------
+
+	#include <stdio.h> 
+#include <stdlib.h> // For exit() 
+  
+int main() 
+{ 
+    FILE *fptr1, *fptr2; 
+    char filename[100], c; 
+  
+    printf("Enter the filename to open for reading \n"); 
+    scanf("%s", filename); 
+  
+    // Open one file for reading 
+    fptr1 = fopen(filename, "r"); 
+    if (fptr1 == NULL) 
+    { 
+        printf("Cannot open file %s \n", filename); 
+        exit(0); 
+    } 
+  
+    printf("Enter the filename to open for writing \n"); 
+    scanf("%s", filename); 
+  
+    // Open another file for writing 
+    fptr2 = fopen(filename, "w"); 
+    if (fptr2 == NULL) 
+    { 
+        printf("Cannot open file %s \n", filename); 
+        exit(0); 
+    } 
+  
+    // Read contents from file 
+    c = fgetc(fptr1); 
+    while (c != EOF) 
+    { 
+        fputc(c, fptr2); 
+        c = fgetc(fptr1); 
+    } 
+  
+    printf("\nContents copied to %s", filename); 
+  
+    fclose(fptr1); 
+    fclose(fptr2); 
+    return 0; 
+}
